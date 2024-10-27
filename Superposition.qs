@@ -1,4 +1,5 @@
 namespace ExploringSuperposition {
+    import Std.Diagnostics.DumpMachine;
     import Std.Convert.ResultArrayAsBoolArray;
     import Std.Convert.BoolArrayAsInt;
     import Std.Arrays.ForEach;
@@ -13,9 +14,15 @@ namespace ExploringSuperposition {
 
         Message("Initialized qubits:");
         DumpMachine(); // First dump
-        Message(" ");
 
-        let result = ForEach(M, qBits);
+        mutable result = [];
+        for q in qBits {
+            Message(" ");
+            set result += [M(q)];
+            Message($"{result}");
+            DumpMachine();
+        }
+
         Message("Qubit after the measurement:");
         DumpMachine(); // Third dump
 
